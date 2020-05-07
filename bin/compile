@@ -1,0 +1,27 @@
+#!/bin/sh
+# bin/compile <build-dir> <cache-dir> <env-dir>
+
+set -eo pipefail
+
+indent() {
+  sed -u 's/^/       /'
+}
+
+VERSION="v0.0.4"
+REPO="https://github.com/remind101/ssm-env"
+
+DOWNLOAD_URL="${REPO}/releases/download/${VERSION}/ssm-env"
+
+
+# parse and derive params
+BUILD_DIR=$1
+CACHE_DIR=$2
+
+BUILDPACK_DIR="$(dirname $(dirname $0))"
+
+echo "-----> Downloading ssm-env"
+
+curl -s -L ${DOWNLOAD_URL} > /usr/local/bin/ssm-env
+cd /usr/local/bin
+echo 4a5140b04f8b3f84d16a93540daa7bbd ssm-env | md5sum
+chmod +x ssm-env

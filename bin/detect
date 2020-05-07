@@ -1,0 +1,5 @@
+#!/bin/sh
+# bin/detect <build-dir>
+
+echo "ssm-env"
+exit 0
