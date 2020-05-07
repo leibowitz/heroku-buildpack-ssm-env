@@ -19,7 +19,7 @@ CACHE_DIR=$2
 
 BUILDPACK_DIR="$(dirname $(dirname $0))"
 
-BIN_DIR="/app/bin"
+BIN_DIR="${BUILD_DIR}/vendor/bin"
 
 # Make sure the directory exists
 mkdir -p "${BIN_DIR}"
@@ -34,5 +34,5 @@ mv /tmp/ssm-env "${BIN_DIR}/ssm-env"
 # Add $BIN_DIR to $PATH
 mkdir -p "${BUILD_DIR}/.profile.d"
 cat > "${BUILD_DIR}/.profile.d/ssm-env.sh" <<'PROFILE'
-export PATH="$HOME/bin:$PATH"
+export PATH="$PATH:$BIN_DIR"
 PROFILE
