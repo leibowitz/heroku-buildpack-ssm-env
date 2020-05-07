@@ -19,9 +19,20 @@ CACHE_DIR=$2
 
 BUILDPACK_DIR="$(dirname $(dirname $0))"
 
+BIN_DIR="/app/bin"
+
+# Make sure the directory exists
+mkdir -p "${BIN_DIR}"
+
 echo "-----> Downloading ssm-env"
 
-curl -s -L ${DOWNLOAD_URL} > /usr/local/bin/ssm-env
-cd /usr/local/bin
-echo 4a5140b04f8b3f84d16a93540daa7bbd ssm-env | md5sum
-chmod +x ssm-env
+curl -s -L ${DOWNLOAD_URL} > /tmp/ssm-env
+echo 4a5140b04f8b3f84d16a93540daa7bbd /tmp/ssm-env | md5sum
+chmod +x /tmp/ssm-env
+mv /tmp/ssm-env "${BIN_DIR}/ssm-env"
+
+# Add $BIN_DIR to $PATH
+mkdir -p "${BUILD_DIR}/.profile.d"
+cat > "$${BUILD_DIR}/.profile.d/ssm-env.sh" <<'PROFILE'
+export PATH="$HOME/bin:$PATH"
+PROFILE
