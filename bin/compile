@@ -33,6 +33,6 @@ mv /tmp/ssm-env "${BIN_DIR}/ssm-env"
 
 # Add $BIN_DIR to $PATH
 mkdir -p "${BUILD_DIR}/.profile.d"
-cat > "$${BUILD_DIR}/.profile.d/ssm-env.sh" <<'PROFILE'
+cat > "${BUILD_DIR}/.profile.d/ssm-env.sh" <<'PROFILE'
 export PATH="$HOME/bin:$PATH"
 PROFILE
